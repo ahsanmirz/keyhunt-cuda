@@ -90,6 +90,7 @@ all: KeyHunt
 KeyHunt: $(OBJET)
 	@echo Making KeyHunt...
 	$(CXX) $(OBJET) $(LFLAGS) -o KeyHunt
+	@ln -sf KeyHunt keyhunt
 
 $(OBJET): | $(OBJDIR) $(OBJDIR)/GPU $(OBJDIR)/hash
 
@@ -107,5 +108,4 @@ clean:
 	@rm -f obj/*.o
 	@rm -f obj/GPU/*.o
 	@rm -f obj/hash/*.o
-
 
