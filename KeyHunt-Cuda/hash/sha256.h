@@ -17,6 +17,7 @@
 
 #ifndef SHA256_H
 #define SHA256_H
+#include <cstdint>
 #include <string>
 
 void sha256(uint8_t *input, int length, uint8_t *digest);
@@ -33,3 +34,4 @@ std::string sha256_hex(unsigned char *digest);
 void sha256sse_test();
 
 #endif
+
