@@ -32,11 +32,21 @@ OBJET = $(addprefix $(OBJDIR)/, \
 endif
 
 CXX        = g++
-CUDA       = /usr/local/cuda
+# Allow overriding CUDA/NVCC from environment/command line:
+#   make gpu=1 CUDA=/usr/local/cuda-12.4 CCAP=86 all
+#   make gpu=1 NVCC=/usr/local/cuda-12.4/bin/nvcc CCAP=86 all
+CUDA      ?= /usr/local/cuda
 CXXCUDA    = /usr/bin/g++
-NVCC       = $(CUDA)/bin/nvcc
+NVCC      ?= $(CUDA)/bin/nvcc
 # nvcc requires joint notation w/o dot, i.e. "5.2" -> "52"
 ccap       = $(shell echo $(CCAP) | tr -d '.')
+
+ifdef gpu
+NVCC_PATH := $(shell command -v $(NVCC) 2>/dev/null)
+ifeq ($(strip $(NVCC_PATH)),)
+$(error nvcc not found (looked for '$(NVCC)'). Install CUDA Toolkit (devel) or pass CUDA=/path/to/cuda or NVCC=/path/to/nvcc. Example: make gpu=1 CUDA=/usr/local/cuda-12.4 CCAP=86 all)
+endif
+endif
 
 ifdef gpu
 ifdef debug
