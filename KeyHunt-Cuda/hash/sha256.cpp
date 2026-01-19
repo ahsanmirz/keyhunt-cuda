@@ -16,6 +16,7 @@
 */
 
 #include <string.h>
+#include <cstdint>
 #include "sha256.h"
 
 #define BSWAP
@@ -508,4 +509,5 @@ std::string sha256_hex(unsigned char *digest)
     return std::string(buf);
 
 }
+
 
